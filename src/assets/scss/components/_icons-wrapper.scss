@@ -1,0 +1,89 @@
+.is-grass {
+  background-color: green;
+  box-shadow: 3px 3px 3px transparentize($color: green, $amount: 0.5);
+}
+
+.is-fire {
+  background-color: tomato;
+  box-shadow: 3px 3px 3px transparentize($color: tomato, $amount: 0.5);
+}
+
+.is-water {
+  background-color: lightblue;
+  box-shadow: 3px 3px 3px transparentize($color: lightblue, $amount: 0.5);
+}
+
+.is-bug {
+  background-color: lightgreen;
+  box-shadow: 3px 3px 3px transparentize($color: lightgreen, $amount: 0.5);
+}
+
+.is-poison {
+  background-color: purple;
+  box-shadow: 3px 3px 3px transparentize($color: purple, $amount: 0.5);
+}
+
+.is-normal {
+  background-color: grey;
+  box-shadow: 3px 3px 3px transparentize($color: grey, $amount: 0.5);
+}
+
+.is-flying {
+  background-color: lightskyblue;
+  box-shadow: 3px 3px 3px transparentize($color: lightskyblue, $amount: 0.5);
+}
+
+.is-dark {
+  background-color: darkgray;
+  box-shadow: 3px 3px 3px transparentize($color: darkgray, $amount: 0.5);
+}
+
+.is-dragon {
+  background-color: darkblue;
+  box-shadow: 3px 3px 3px transparentize($color: darkblue, $amount: 0.5);
+}
+
+.is-electric {
+  background-color: yellow;
+  box-shadow: 3px 3px 3px transparentize($color: yellow, $amount: 0.5);
+}
+
+.is-fairy {
+  background-color: pink;
+  box-shadow: 3px 3px 3px transparentize($color: pink, $amount: 0.5);
+}
+
+.is-fighting {
+  background-color: crimson;
+  box-shadow: 3px 3px 3px transparentize($color: crimson, $amount: 0.5);
+}
+
+.is-ghost {
+  background-color: blueviolet;
+  box-shadow: 3px 3px 3px transparentize($color: blueviolet, $amount: 0.5);
+}
+
+.is-ground {
+  background-color: peru;
+  box-shadow: 3px 3px 3px transparentize($color: peru, $amount: 0.5);
+}
+
+.is-ice {
+  background-color: cadetblue;
+  box-shadow: 3px 3px 3px transparentize($color: cadetblue, $amount: 0.5);
+}
+
+.is-psychic {
+  background-color: palevioletred;
+  box-shadow: 3px 3px 3px transparentize($color: palevioletred, $amount: 0.5);
+}
+
+.is-rock {
+  background-color: sandybrown;
+  box-shadow: 3px 3px 3px transparentize($color: sandybrown, $amount: 0.5);
+}
+
+.is-steel {
+  background-color: steelblue;
+  box-shadow: 3px 3px 3px transparentize($color: steelblue, $amount: 0.5);
+}

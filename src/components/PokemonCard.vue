@@ -12,6 +12,7 @@
           v-for="(type, index) in pokemon.types"
           :key="index"
           class="pokemon-card__types-wrapper"
+          :class="`is-${type.type.name}`"
         >
           <img
             class="pokemon-card__type"

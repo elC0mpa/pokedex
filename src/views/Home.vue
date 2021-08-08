@@ -19,7 +19,7 @@ export default {
       pokemons: [],
     });
     const options = {
-      limit: 26,
+      limit: 24,
       offset: 0,
     };
     getPokemonList(options)
