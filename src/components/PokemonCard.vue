@@ -1,5 +1,12 @@
 <template>
-  <div class="pokemon-card" @mouseover="hover(true)" @mouseleave="hover(false)">
+  <div
+    v-observe-visibility="
+      pokemon.name === lastItem.name ? visibilityChanged : false
+    "
+    class="pokemon-card"
+    @mouseover="hover(true)"
+    @mouseleave="hover(false)"
+  >
     <img
       class="pokemon-card__image"
       :alt="pokemon.name"
@@ -37,18 +44,28 @@ export default {
       type: Object,
       required: true,
     },
+    lastItem: {
+      type: Object,
+      required: true,
+    },
   },
-  setup(props) {
+  setup(props, context) {
     const state = reactive({
       mouseOver: false,
     });
     const hover = (mouseOver) => {
       state.mouseOver = mouseOver;
     };
+    const visibilityChanged = (isVisible) => {
+      if (isVisible && props.pokemon.name === props.lastItem.name) {
+        context.emit("last-item-visible");
+      }
+    };
     return {
       props,
       ...toRefs(state),
       hover,
+      visibilityChanged,
     };
   },
 };

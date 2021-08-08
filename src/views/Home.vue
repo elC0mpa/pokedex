@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <pokemons-card-wrapper :pokemons="pokemons"></pokemons-card-wrapper>
+    <pokemons-card-wrapper
+      @last-item-visible="fetchData"
+      :pokemons="pokemons"
+    ></pokemons-card-wrapper>
   </div>
 </template>
 
@@ -17,21 +20,32 @@ export default {
   setup() {
     const state = reactive({
       pokemons: [],
+      loading: false,
     });
     const options = {
       limit: 40,
       offset: 0,
     };
-    getPokemonList(options)
-      .then((data) => {
-        console.log(data);
-        state.pokemons = data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const fetchData = () => {
+      if (!state.loading) {
+        state.loading = true;
+        console.log("Fetch more data");
+        getPokemonList(options)
+          .then((data) => {
+            console.log(options);
+            state.pokemons = [...state.pokemons, ...data];
+            state.loading = false;
+            options.offset = options.offset + 40;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    };
+    fetchData();
     return {
       ...toRefs(state),
+      fetchData,
     };
   },
 };
