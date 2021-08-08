@@ -7,7 +7,18 @@
     />
     <div class="pokemon-card__name-types-container">
       <p class="pokemon-card__name">{{ pokemon.name }}</p>
-      <!-- <img src="../" -->
+      <div class="pokemon-card__types-container">
+        <div
+          v-for="(type, index) in pokemon.types"
+          :key="index"
+          class="pokemon-card__types-wrapper"
+        >
+          <img
+            class="pokemon-card__type"
+            :src="require(`../assets/icons/${type.type.name}.svg`)"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
