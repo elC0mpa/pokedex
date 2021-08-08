@@ -1,8 +1,10 @@
 <template>
   <div class="home">
-    <div v-for="(pokemon, index) in pokemons" :key="index">
-      <img :alt="pokemon.name" :src="pokemon.sprites.front_default" />
-    </div>
+    <pokemon-card
+      v-for="(pokemon, index) in pokemons"
+      :key="index"
+      :pokemon="pokemon"
+    ></pokemon-card>
   </div>
 </template>
 
@@ -10,8 +12,12 @@
 // @ is an alias to /src
 import { reactive, toRefs } from "@vue/reactivity";
 import { getPokemonList } from "../composables/api";
+import PokemonCard from "../components/PokemonCard.vue";
 export default {
   name: "Home",
+  components: {
+    PokemonCard,
+  },
   setup() {
     const state = reactive({
       pokemons: [],
