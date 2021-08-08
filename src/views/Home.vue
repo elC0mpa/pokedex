@@ -1,18 +1,36 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div v-for="(pokemon, index) in pokemons" :key="index">
+      <img :alt="pokemon.name" :src="pokemon.sprites.front_default" />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import { reactive, toRefs } from "@vue/reactivity";
+import { getPokemonList } from "../composables/api";
 export default {
   name: "Home",
-  components: {
-    HelloWorld,
+  setup() {
+    const state = reactive({
+      pokemons: [],
+    });
+    const options = {
+      limit: 25,
+      offset: 0,
+    };
+    getPokemonList(options)
+      .then((data) => {
+        console.log(data);
+        state.pokemons = data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    return {
+      ...toRefs(state),
+    };
   },
 };
 </script>
