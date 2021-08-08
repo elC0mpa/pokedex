@@ -1,10 +1,6 @@
 <template>
   <div class="home">
-    <pokemon-card
-      v-for="(pokemon, index) in pokemons"
-      :key="index"
-      :pokemon="pokemon"
-    ></pokemon-card>
+    <pokemons-card-wrapper :pokemons="pokemons"></pokemons-card-wrapper>
   </div>
 </template>
 
@@ -12,18 +8,18 @@
 // @ is an alias to /src
 import { reactive, toRefs } from "@vue/reactivity";
 import { getPokemonList } from "../composables/api";
-import PokemonCard from "../components/PokemonCard.vue";
+import PokemonsCardWrapper from "../components/PokemonsCardWrapper.vue";
 export default {
   name: "Home",
   components: {
-    PokemonCard,
+    PokemonsCardWrapper,
   },
   setup() {
     const state = reactive({
       pokemons: [],
     });
     const options = {
-      limit: 25,
+      limit: 26,
       offset: 0,
     };
     getPokemonList(options)
