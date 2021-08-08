@@ -1,9 +1,13 @@
 <template>
-  <div class="pokemon-card">
+  <div class="pokemon-card" @mouseover="hover(true)" @mouseleave="hover(false)">
     <img
       class="pokemon-card__image"
       :alt="pokemon.name"
-      :src="pokemon.sprites.front_default"
+      :src="
+        mouseOver === false
+          ? pokemon.sprites.front_default
+          : pokemon.sprites.front_shiny
+      "
     />
     <div class="pokemon-card__name-types-container">
       <p class="pokemon-card__name">{{ pokemon.name }}</p>
@@ -25,6 +29,7 @@
 </template>
 
 <script>
+import { reactive, toRefs } from "@vue/reactivity";
 export default {
   name: "PokemonCard",
   props: {
@@ -34,8 +39,16 @@ export default {
     },
   },
   setup(props) {
+    const state = reactive({
+      mouseOver: false,
+    });
+    const hover = (mouseOver) => {
+      state.mouseOver = mouseOver;
+    };
     return {
       props,
+      ...toRefs(state),
+      hover,
     };
   },
 };
