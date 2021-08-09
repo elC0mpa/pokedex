@@ -1,53 +1,31 @@
 <template>
-  <div class="home">
-    <pokemons-card-wrapper
-      @last-item-visible="fetchData"
-      :pokemons="pokemons"
-      :isFetching="loading"
-    ></pokemons-card-wrapper>
-  </div>
+  <main class="main-section">
+    <pokemon-filters @type-filter="typesFilterUpdated"></pokemon-filters>
+    <pokemons-card-wrapper :type-filters="typeFilters"></pokemons-card-wrapper>
+  </main>
 </template>
 
 <script>
 // @ is an alias to /src
 import { reactive, toRefs } from "@vue/reactivity";
-import { getPokemonList } from "../composables/api";
 import PokemonsCardWrapper from "../components/PokemonsCardWrapper.vue";
+import PokemonFilters from "../components/PokemonFilters.vue";
 export default {
   name: "Home",
   components: {
     PokemonsCardWrapper,
+    PokemonFilters,
   },
   setup() {
     const state = reactive({
-      pokemons: [],
-      loading: false,
+      typeFilters: [],
     });
-    const options = {
-      limit: 40,
-      offset: 0,
+    const typesFilterUpdated = (types) => {
+      state.typeFilters = [...types];
     };
-    const fetchData = () => {
-      if (!state.loading) {
-        state.loading = true;
-        console.log("Fetch more data");
-        getPokemonList(options)
-          .then((data) => {
-            console.log(options);
-            state.pokemons = [...state.pokemons, ...data];
-            options.offset = options.offset + 40;
-            state.loading = false;
-            state.loading = false;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    };
-    fetchData();
     return {
       ...toRefs(state),
-      fetchData,
+      typesFilterUpdated,
     };
   },
 };
