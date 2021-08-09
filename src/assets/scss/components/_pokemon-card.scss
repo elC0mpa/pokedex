@@ -21,22 +21,6 @@
     flex-direction: row;
     align-content: center;
   }
-  &__types-wrapper {
-    border-radius: 20px;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:first-child {
-      margin-right: 3px;
-    }
-  }
-  &__type {
-    height: 16px;
-    margin: 0 auto;
-    width: 16px;
-  }
   transition: all 0.5s;
   &:hover {
     transform: scale(1.2);

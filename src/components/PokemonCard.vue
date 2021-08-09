@@ -19,17 +19,11 @@
     <div class="pokemon-card__name-types-container">
       <p class="pokemon-card__name">{{ pokemon.name }}</p>
       <div class="pokemon-card__types-container">
-        <div
+        <pokemon-type-icon
           v-for="(type, index) in pokemon.types"
           :key="index"
-          class="pokemon-card__types-wrapper"
-          :class="`is-${type.type.name}`"
-        >
-          <img
-            class="pokemon-card__type"
-            :src="require(`../assets/icons/${type.type.name}.svg`)"
-          />
-        </div>
+          :type="type.type.name"
+        ></pokemon-type-icon>
       </div>
     </div>
   </div>
@@ -37,8 +31,12 @@
 
 <script>
 import { reactive, toRefs } from "@vue/reactivity";
+import PokemonTypeIcon from "../components/PokemonTypeIcon.vue";
 export default {
   name: "PokemonCard",
+  components: {
+    PokemonTypeIcon,
+  },
   props: {
     pokemon: {
       type: Object,
