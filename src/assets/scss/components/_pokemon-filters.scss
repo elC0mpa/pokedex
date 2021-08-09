@@ -1,0 +1,29 @@
+.pokemon-filters {
+  position: fixed;
+  left: 10px;
+  width: 200px;
+  &__types-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  &__type-container {
+    flex: 0 0 40%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 1s;
+    transform: scale(0.95);
+    > p {
+      font-size: medium;
+      margin-left: 3px;
+    }
+    &:not(:last-child) {
+      margin-bottom: 7px;
+    }
+    &.is-filtered {
+      text-decoration: underline;
+      transform: scale(1);
+    }
+  }
+}

@@ -17,4 +17,16 @@ const getPokemonList = (options) => {
   });
 };
 
-export { getPokemonList };
+const getPokemonTypes = () => {
+  // eslint-disable-next-line no-async-promise-executor
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { results } = await P.getTypesList();
+      resolve(results);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export { getPokemonList, getPokemonTypes };
