@@ -2,7 +2,7 @@
   <div class="pokemons-card-wrapper" :class="{ 'is-fetching': isFetching }">
     <pokemon-card
       @last-item-visible="fetchData"
-      v-for="(pokemon, index) in pokemons"
+      v-for="(pokemon, index) in pokemons || []"
       v-show="
         filteredPokemons.some((filteredPokemon) => {
           return pokemon.name === filteredPokemon.name;

@@ -7,7 +7,7 @@
       <div
         class="pokemon-filters__type-container"
         :class="{ 'is-filtered': filters.includes(type.name) }"
-        v-for="(type, index) in types"
+        v-for="(type, index) in types || []"
         :key="index"
         @click="toggleTypeFilter(type.name)"
       >
@@ -33,7 +33,6 @@ export default {
     });
     getPokemonTypes().then((data) => {
       state.types = data;
-      console.log(state.types);
     });
     const toggleTypeFilter = (type) => {
       const typeFilteredIndex = state.filters.findIndex((filterType) => {
