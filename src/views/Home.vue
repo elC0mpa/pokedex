@@ -3,6 +3,7 @@
     <pokemons-card-wrapper
       @last-item-visible="fetchData"
       :pokemons="pokemons"
+      :isFetching="loading"
     ></pokemons-card-wrapper>
   </div>
 </template>
@@ -34,8 +35,9 @@ export default {
           .then((data) => {
             console.log(options);
             state.pokemons = [...state.pokemons, ...data];
-            state.loading = false;
             options.offset = options.offset + 40;
+            state.loading = false;
+            state.loading = false;
           })
           .catch((error) => {
             console.log(error);

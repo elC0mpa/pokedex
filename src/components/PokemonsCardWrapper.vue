@@ -1,5 +1,5 @@
 <template>
-  <div class="pokemons-card-wrapper">
+  <div class="pokemons-card-wrapper" :class="{ 'is-fetching': isFetching }">
     <pokemon-card
       @last-item-visible="lastItemVisible"
       v-for="(pokemon, index) in pokemons"
@@ -19,6 +19,10 @@ export default {
       type: Array,
       required: true,
     },
+    isFetching: {
+      type: Boolean,
+      required: true,
+    },
   },
   components: {
     PokemonCard,
@@ -26,14 +30,20 @@ export default {
   setup(props, context) {
     const state = reactive({
       lastItem: {},
+      isFetching: true,
     });
     const lastItemVisible = () => {
       context.emit("last-item-visible");
     };
     watch(props, () => {
       state.lastItem = props.pokemons[props.pokemons.length - 1];
-      console.log("new lastItem in Wrapper: ", state.lastItem);
     });
+    watch(
+      () => props.isFetching,
+      (newVal) => {
+        console.log("Is Fetching: ", newVal);
+      }
+    );
     return {
       props,
       lastItemVisible,
