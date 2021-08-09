@@ -1,8 +1,13 @@
 <template>
   <div class="pokemons-card-wrapper" :class="{ 'is-fetching': isFetching }">
     <pokemon-card
-      @last-item-visible="lastItemVisible"
-      v-for="(pokemon, index) in filteredPokemons"
+      @last-item-visible="fetchData"
+      v-for="(pokemon, index) in pokemons"
+      v-show="
+        filteredPokemons.some((filteredPokemon) => {
+          return pokemon.name === filteredPokemon.name;
+        })
+      "
       :key="index"
       :pokemon="pokemon"
       :last-item="lastItem"
@@ -32,29 +37,8 @@ export default {
       lastItem: {},
       isFetching: false,
     });
-    const lastItemVisible = () => {
-      console.log("Fetching more data");
-      fetchData();
-    };
-    watch(
-      () => props.typeFilters,
-      (newVal) => {
-        if (newVal.length === 0) {
-          console.log("No type filters....\nRendering all pokemons");
-          state.filteredPokemons = [...state.pokemons];
-          state.lastItem = state.pokemons[state.pokemons.length - 1];
-        } else {
-          state.lastItem = {};
-          state.filteredPokemons = state.pokemons.filter((pokemon) => {
-            const hasType = pokemon.types.some((type) => {
-              return newVal.includes(type.type.name);
-            });
-            return hasType;
-          });
-        }
-      }
-    );
 
+    //Fetch Pokemons features!!!!!!!!!!!!!!
     const options = {
       limit: 40,
       offset: 0,
@@ -80,9 +64,29 @@ export default {
     };
     fetchData();
 
+    //Filter Pokemons features!!!!!!!!!!!!!!
+    watch(
+      () => props.typeFilters,
+      (newVal) => {
+        if (newVal.length === 0) {
+          console.log("No type filters....\nRendering all pokemons");
+          state.filteredPokemons = [...state.pokemons];
+          state.lastItem = state.pokemons[state.pokemons.length - 1];
+        } else {
+          state.lastItem = {};
+          state.filteredPokemons = state.pokemons.filter((pokemon) => {
+            const hasType = pokemon.types.some((type) => {
+              return newVal.includes(type.type.name);
+            });
+            return hasType;
+          });
+        }
+      }
+    );
+
     return {
       props,
-      lastItemVisible,
+      fetchData,
       ...toRefs(state),
     };
   },

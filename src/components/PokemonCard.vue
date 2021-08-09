@@ -1,8 +1,6 @@
 <template>
   <div
-    v-observe-visibility="
-      pokemon.name === lastItem.name ? visibilityChanged : false
-    "
+    v-observe-visibility="isLastItem ? visibilityChanged : false"
     class="pokemon-card"
     @mouseover="hover(true)"
     @mouseleave="hover(false)"
@@ -32,6 +30,7 @@
 <script>
 import { reactive, toRefs } from "@vue/reactivity";
 import PokemonTypeIcon from "../components/PokemonTypeIcon.vue";
+import { computed } from "@vue/runtime-core";
 export default {
   name: "PokemonCard",
   components: {
@@ -59,11 +58,23 @@ export default {
         context.emit("last-item-visible");
       }
     };
+
+    // watch(
+    //   () => props.lastItem,
+    //   (newVal) => {
+    //     console.log("Pokemon Card detected a new lastItem: ", newVal);
+    //   }
+    // );
+
+    const isLastItem = computed(
+      () => props.pokemon.name === props.lastItem.name
+    );
     return {
       props,
       ...toRefs(state),
       hover,
       visibilityChanged,
+      isLastItem,
     };
   },
 };
