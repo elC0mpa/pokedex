@@ -1,14 +1,14 @@
 .pokemon-filters {
   position: fixed;
   left: 10px;
-  width: 200px;
+  width: 20%;
   &__types-section {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
   }
   &__type-container {
-    flex: 0 0 40%;
+    flex: 0 0 30%;
     display: flex;
     align-items: center;
     cursor: pointer;
