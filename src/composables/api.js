@@ -22,7 +22,11 @@ const getPokemonTypes = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const { results } = await P.getTypesList();
-      resolve(results);
+      resolve(
+        results.filter(
+          (type) => type.name !== "unknown" && type.name !== "shadow"
+        )
+      );
     } catch (error) {
       reject(error);
     }

@@ -23,6 +23,7 @@ import { reactive, toRefs } from "@vue/reactivity";
 import { getPokemonTypes } from "../composables/api";
 import PokemonTypeIcon from "../components/PokemonTypeIcon.vue";
 export default {
+  name: "PokemonFilters",
   components: {
     PokemonTypeIcon,
   },
