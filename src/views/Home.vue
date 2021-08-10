@@ -1,5 +1,6 @@
 <template>
   <main class="main-section">
+    <h1 class="main-header">PokeVue</h1>
     <pokemon-filters @type-filter="typesFilterUpdated"></pokemon-filters>
     <pokemons-card-wrapper :type-filters="typeFilters"></pokemons-card-wrapper>
   </main>
