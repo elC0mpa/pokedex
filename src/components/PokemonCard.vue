@@ -4,6 +4,7 @@
     class="pokemon-card"
     @mouseover="hover(true)"
     @mouseleave="hover(false)"
+    @click="showPokemonDetails(pokemon.id)"
   >
     <img
       class="pokemon-card__image"
@@ -31,6 +32,8 @@
 import { reactive, toRefs } from "@vue/reactivity";
 import PokemonTypeIcon from "../components/PokemonTypeIcon.vue";
 import { computed } from "@vue/runtime-core";
+import { useRouter } from "vue-router";
+
 export default {
   name: "PokemonCard",
   components: {
@@ -59,22 +62,28 @@ export default {
       }
     };
 
-    // watch(
-    //   () => props.lastItem,
-    //   (newVal) => {
-    //     console.log("Pokemon Card detected a new lastItem: ", newVal);
-    //   }
-    // );
-
     const isLastItem = computed(
       () => props.pokemon.name === props.lastItem.name
     );
+
+    const showPokemonDetails = (pokemonId) => {
+      console.log("Pokemon to get Data: ", pokemonId);
+      router.push({
+        name: "PokemonDetails",
+        params: {
+          id: pokemonId,
+        },
+      });
+    };
+
+    const router = useRouter();
     return {
       props,
       ...toRefs(state),
       hover,
       visibilityChanged,
       isLastItem,
+      showPokemonDetails,
     };
   },
 };
