@@ -1,3 +1,4 @@
+import { createClient } from "villus";
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -16,4 +17,8 @@ app.directive("observe-visibility", {
   unmounted: ObserveVisibility.unbind,
 });
 
-app.use(store).use(router).mount("#app");
+const client = createClient({
+  url: "https://dex-server.herokuapp.com/", // your endpoint.
+});
+
+app.use(store).use(router).use(client).mount("#app");
