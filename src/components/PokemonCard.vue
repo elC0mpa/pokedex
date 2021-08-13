@@ -21,7 +21,7 @@
         <pokemon-type-icon
           v-for="(type, index) in pokemon.types"
           :key="index"
-          :type="type.type.name"
+          :type="type.name.toLowerCase()"
         ></pokemon-type-icon>
       </div>
     </div>
