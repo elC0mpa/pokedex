@@ -67,7 +67,6 @@ export default {
     );
 
     const showPokemonDetails = (pokemonId) => {
-      console.log("Pokemon to get Data: ", pokemonId);
       router.push({
         name: "PokemonDetails",
         params: {
