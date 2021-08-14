@@ -39,11 +39,11 @@ export default {
       isFetching: false,
     });
 
+    //Fetch Pokemons features!!!!!!!!!!!!!!
     const queryVars = reactive({
       allPokemonLimit: 40,
     });
 
-    //Fetch Pokemons features!!!!!!!!!!!!!!
     const { execute: getPokemons } = useQuery({
       query: getPokemonsQuery,
       variables: queryVars,
@@ -78,7 +78,7 @@ export default {
           state.lastItem = {};
           state.filteredPokemons = state.pokemons.filter((pokemon) => {
             const hasType = pokemon.types.some((type) => {
-              return newVal.includes(type.type.name);
+              return newVal.includes(type.name.toLowerCase());
             });
             return hasType;
           });
