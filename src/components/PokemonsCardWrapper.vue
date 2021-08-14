@@ -17,7 +17,8 @@
 
 <script>
 import { reactive, toRefs, watch } from "@vue/runtime-core";
-import { getPokemonList } from "../composables/api";
+import { getPokemonsQuery } from "../composables/graphql-api";
+import { useQuery } from "villus";
 import PokemonCard from "../components/PokemonCard.vue";
 export default {
   props: {
@@ -38,29 +39,30 @@ export default {
       isFetching: false,
     });
 
+    const queryVars = reactive({
+      allPokemonLimit: 40,
+    });
+
     //Fetch Pokemons features!!!!!!!!!!!!!!
-    const options = {
-      limit: 40,
-      offset: 0,
-    };
+    const { execute: getPokemons } = useQuery({
+      query: getPokemonsQuery,
+      variables: queryVars,
+    });
+
     const fetchData = () => {
-      if (!state.isFetching) {
-        state.isFetching = true;
-        console.log("Fetch more data");
-        getPokemonList(options)
-          .then((data) => {
-            console.log(options);
-            state.pokemons = [...state.pokemons, ...data];
-            state.lastItem = state.pokemons[state.pokemons.length - 1];
-            state.filteredPokemons = [...state.pokemons];
-            // typesFilterUpdated(state.typeFilters);
-            options.offset = options.offset + 40;
-            state.isFetching = false;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
+      state.isFetching = true;
+      getPokemons().then((data) => {
+        console.log(data);
+        if (data.error) {
+          console.log(data.error);
+        }
+        state.pokemons = [...data.data.allPokemon];
+        state.lastItem = state.pokemons[state.pokemons.length - 1];
+        state.filteredPokemons = [...state.pokemons];
+        // typesFilterUpdated(state.typeFilters);
+        queryVars.allPokemonLimit += 40;
+        state.isFetching = false;
+      });
     };
     fetchData();
 
