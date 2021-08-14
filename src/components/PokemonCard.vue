@@ -2,15 +2,13 @@
   <div
     v-observe-visibility="isLastItem ? visibilityChanged : false"
     class="pokemon-card"
-    @mouseover="hover(true)"
-    @mouseleave="hover(false)"
     @click="showPokemonDetails(pokemon.id)"
   >
     <img
       class="pokemon-card__image"
       :alt="pokemon.name"
       :src="
-        mouseOver === false
+        isFetching === false
           ? pokemon.sprites.front_default
           : pokemon.sprites.front_shiny
       "
@@ -46,6 +44,10 @@ export default {
     },
     lastItem: {
       type: Object,
+      required: true,
+    },
+    isFetching: {
+      type: Boolean,
       required: true,
     },
   },

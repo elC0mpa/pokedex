@@ -11,6 +11,7 @@
       :key="index"
       :pokemon="pokemon"
       :last-item="lastItem"
+      :is-fetching="isFetching"
     ></pokemon-card>
   </div>
 </template>
@@ -44,7 +45,7 @@ export default {
       allPokemonLimit: 40,
     });
 
-    const { execute: getPokemons } = useQuery({
+    const { execute: getPokemons, isFetching } = useQuery({
       query: getPokemonsQuery,
       variables: queryVars,
     });
@@ -61,7 +62,9 @@ export default {
         state.filteredPokemons = [...state.pokemons];
         // typesFilterUpdated(state.typeFilters);
         queryVars.allPokemonLimit += 40;
-        state.isFetching = false;
+        setTimeout(() => {
+          state.isFetching = false;
+        }, 5500);
       });
     };
     fetchData();
@@ -90,6 +93,7 @@ export default {
       props,
       fetchData,
       ...toRefs(state),
+      isFetching,
     };
   },
 };
