@@ -14,4 +14,48 @@ query ($allPokemonLimit: Int) {
 }
 `;
 
-export { getPokemonsQuery };
+const getPokemonDetailsQuery = `
+query Query($pokemonId: Int!) {
+  pokemon(id: $pokemonId) {
+    name
+    genus
+    types {
+      name
+    }
+    sprites {
+      front_default
+    }
+    evolves_to {
+      name
+      sprites {
+        front_default
+      }
+    }
+    evolves_from {
+      name
+      sprites {
+        front_default
+      }
+    }
+    weight
+    height
+    abilities {
+      name
+      description
+    }
+    base_stats {
+      attack 
+      defense
+      hp
+      special_attack
+      special_defense
+      speed
+    }
+    pokedex_entries {
+      description
+    }
+  }
+}
+`;
+
+export { getPokemonsQuery, getPokemonDetailsQuery };
