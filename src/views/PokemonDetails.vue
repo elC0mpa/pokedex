@@ -1,7 +1,7 @@
 <template>
-  <div class="pokemon-details-section">
+  <div v-if="!isFetching" class="pokemon-details-section">
+    <pokemon-details-card :pokemon="pokemon"></pokemon-details-card>
     <div
-      v-if="pokemon.types"
       class="pokemon-details-section__icon-wrapper"
       :class="`is-${pokemon.types[0].name.toLowerCase()}`"
     >
@@ -13,7 +13,6 @@
       />
     </div>
     <div
-      v-if="pokemon.types"
       class="pokemon-details-section__icon-wrapper"
       :class="`is-${pokemon.types[
         pokemon.types.length - 1
@@ -35,9 +34,13 @@
 import { reactive, toRefs } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import { useQuery } from "villus";
+import PokemonDetailsCard from "../components/PokemonDetailsCard.vue";
 import { getPokemonDetailsQuery } from "../composables/graphql-api";
 export default {
   name: "PokemonDetails",
+  components: {
+    PokemonDetailsCard,
+  },
   setup() {
     const state = reactive({
       pokemon: {},
