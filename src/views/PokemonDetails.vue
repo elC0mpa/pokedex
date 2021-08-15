@@ -34,7 +34,7 @@
 import { reactive, toRefs } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import { useQuery } from "villus";
-import PokemonDetailsCard from "../components/PokemonDetailsCard.vue";
+import PokemonDetailsCard from "../components/PokemonDetailsCard/index.vue";
 import { getPokemonDetailsQuery } from "../composables/graphql-api";
 export default {
   name: "PokemonDetails",
