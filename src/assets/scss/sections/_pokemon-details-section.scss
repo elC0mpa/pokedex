@@ -1,0 +1,16 @@
+.pokemon-details-section {
+  display: flex;
+  height: 100vh;
+  &__icon-wrapper {
+    flex: 0 0 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    &--icon {
+      width: 60%;
+    }
+    &:last-child {
+      justify-content: flex-end;
+    }
+  }
+}
