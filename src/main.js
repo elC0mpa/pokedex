@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import "./assets/scss/main.scss";
 import { ObserveVisibility } from "vue-observe-visibility";
+import veProgress from "vue-ellipse-progress";
 
 const app = createApp(App);
 
@@ -21,4 +22,4 @@ const client = createClient({
   url: "https://dex-server.herokuapp.com/", // your endpoint.
 });
 
-app.use(store).use(router).use(client).mount("#app");
+app.use(store).use(router).use(client).use(veProgress).mount("#app");
