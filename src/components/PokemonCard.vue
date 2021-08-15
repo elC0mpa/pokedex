@@ -69,12 +69,13 @@ export default {
     );
 
     const showPokemonDetails = (pokemonId) => {
-      router.push({
+      const url = router.resolve({
         name: "PokemonDetails",
         params: {
           id: pokemonId,
         },
       });
+      window.open(url.href);
     };
 
     const router = useRouter();
