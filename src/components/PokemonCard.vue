@@ -28,7 +28,7 @@
 
 <script>
 import { reactive, toRefs } from "@vue/reactivity";
-import PokemonTypeIcon from "../components/PokemonTypeIcon.vue";
+import PokemonTypeIcon from "./PokemonTypeIcon.vue";
 import { computed } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
 
