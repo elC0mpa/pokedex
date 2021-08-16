@@ -7,11 +7,7 @@
     <img
       class="pokemon-card__image"
       :alt="pokemon.name"
-      :src="
-        isFetching === false
-          ? pokemon.sprites.front_default
-          : pokemon.sprites.front_shiny
-      "
+      :src="pokemon.sprites.front_default"
     />
     <div class="pokemon-card__name-types-container">
       <p class="pokemon-card__name">{{ pokemon.name }}</p>
