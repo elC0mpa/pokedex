@@ -13,11 +13,24 @@
       :last-item="lastItem"
       :is-fetching="isFetching"
     ></pokemon-card>
+    <content-loader
+      :width="220"
+      :height="150"
+      :speed="2"
+      primaryColor="#f3f3f3"
+      secondaryColor="#ecebeb"
+      v-for="index in 60"
+      :key="index"
+      v-show="isFetching && pokemons.length === 0"
+    >
+      <circle cx="136" cy="62" r="48" />
+    </content-loader>
   </div>
 </template>
 
 <script>
 import { reactive, toRefs, watch } from "@vue/runtime-core";
+import { ContentLoader } from "vue-content-loader";
 import { getPokemonsQuery } from "../composables/graphql-api";
 import { useQuery } from "villus";
 import PokemonCard from "../components/PokemonCard.vue";
@@ -30,6 +43,7 @@ export default {
   },
   components: {
     PokemonCard,
+    ContentLoader,
   },
   setup(props) {
     const state = reactive({
