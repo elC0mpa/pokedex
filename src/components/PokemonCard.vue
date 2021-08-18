@@ -2,7 +2,7 @@
   <div
     v-observe-visibility="isLastItem ? visibilityChanged : false"
     class="pokemon-card"
-    @click="showPokemonDetails(pokemon.id)"
+    @click="$emit('item-clicked', pokemon.id)"
   >
     <img
       class="pokemon-card__image"
@@ -26,7 +26,6 @@
 import { reactive, toRefs } from "@vue/reactivity";
 import PokemonTypeIcon from "./PokemonTypeIcon.vue";
 import { computed } from "@vue/runtime-core";
-import { useRouter } from "vue-router";
 
 export default {
   name: "PokemonCard",
@@ -40,10 +39,6 @@ export default {
     },
     lastItem: {
       type: Object,
-      required: true,
-    },
-    isFetching: {
-      type: Boolean,
       required: true,
     },
   },
@@ -64,24 +59,12 @@ export default {
       () => props.pokemon.name === props.lastItem.name
     );
 
-    const showPokemonDetails = (pokemonId) => {
-      const url = router.resolve({
-        name: "PokemonDetails",
-        params: {
-          id: pokemonId,
-        },
-      });
-      window.open(url.href);
-    };
-
-    const router = useRouter();
     return {
       props,
       ...toRefs(state),
       hover,
       visibilityChanged,
       isLastItem,
-      showPokemonDetails,
     };
   },
 };
