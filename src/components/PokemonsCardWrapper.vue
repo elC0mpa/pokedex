@@ -2,6 +2,7 @@
   <div class="pokemons-card-wrapper" :class="{ 'is-fetching': isFetching }">
     <pokemon-card
       @last-item-visible="fetchData"
+      @item-clicked="showPokemonDetails"
       v-for="(pokemon, index) in pokemons || []"
       v-show="
         filteredPokemons.some((filteredPokemon) => {
@@ -11,7 +12,6 @@
       :key="index"
       :pokemon="pokemon"
       :last-item="lastItem"
-      :is-fetching="isFetching"
     ></pokemon-card>
     <content-loader
       :width="220"
@@ -25,6 +25,12 @@
     >
       <circle cx="136" cy="62" r="48" />
     </content-loader>
+    <vue-final-modal v-model="showDetails">
+      <pokemon-details-card
+        v-if="selectedPokemon"
+        :pokemon="selectedPokemon"
+      ></pokemon-details-card>
+    </vue-final-modal>
   </div>
 </template>
 
@@ -32,8 +38,10 @@
 import { reactive, toRefs, watch } from "@vue/runtime-core";
 import { ContentLoader } from "vue-content-loader";
 import { getPokemonsQuery } from "../composables/graphql-api";
+import { getPokemonDetailsQuery } from "../composables/graphql-api";
 import { useQuery } from "villus";
 import PokemonCard from "../components/PokemonCard.vue";
+import PokemonDetailsCard from "../components/PokemonDetailsCard/index.vue";
 export default {
   props: {
     typeFilters: {
@@ -44,6 +52,7 @@ export default {
   components: {
     PokemonCard,
     ContentLoader,
+    PokemonDetailsCard,
   },
   setup(props) {
     const state = reactive({
@@ -52,16 +61,18 @@ export default {
       typeFilters: [],
       lastItem: {},
       isFetching: false,
+      showDetails: false,
+      selectedPokemon: null,
     });
 
     //Fetch Pokemons features!!!!!!!!!!!!!!
-    const queryVars = reactive({
+    const getPokemonsQueryVars = reactive({
       allPokemonLimit: 40,
     });
 
     const { execute: getPokemons, isFetching } = useQuery({
       query: getPokemonsQuery,
-      variables: queryVars,
+      variables: getPokemonsQueryVars,
     });
 
     const fetchData = () => {
@@ -70,12 +81,13 @@ export default {
         console.log(data);
         if (data.error) {
           console.log(data.error);
+          return;
         }
         state.pokemons = [...data.data.allPokemon];
         state.lastItem = state.pokemons[state.pokemons.length - 1];
         state.filteredPokemons = [...state.pokemons];
         // typesFilterUpdated(state.typeFilters);
-        queryVars.allPokemonLimit += 40;
+        getPokemonsQueryVars.allPokemonLimit += 40;
         setTimeout(() => {
           state.isFetching = false;
         }, 5500);
@@ -103,11 +115,35 @@ export default {
       }
     );
 
+    //PokemonDetails Features
+    const getPokemonDetailsVars = reactive({
+      pokemonId: null,
+    });
+
+    const showPokemonDetails = (id) => {
+      getPokemonDetailsVars.pokemonId = id;
+      getPokemonDetails().then((data) => {
+        if (data.error) {
+          console.log(data.error);
+          return;
+        }
+        state.selectedPokemon = data.data.pokemon;
+        state.showDetails = true;
+        console.log(state.selectedPokemon);
+      });
+    };
+
+    const { execute: getPokemonDetails } = useQuery({
+      query: getPokemonDetailsQuery,
+      variables: getPokemonDetailsVars,
+    });
+
     return {
       props,
       fetchData,
       ...toRefs(state),
       isFetching,
+      showPokemonDetails,
     };
   },
 };
