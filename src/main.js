@@ -6,6 +6,7 @@ import store from "./store";
 import "./assets/scss/main.scss";
 import { ObserveVisibility } from "vue-observe-visibility";
 import veProgress from "vue-ellipse-progress";
+import { vfmPlugin } from "vue-final-modal";
 
 const app = createApp(App);
 
@@ -22,4 +23,10 @@ const client = createClient({
   url: "https://dex-server.herokuapp.com/", // your endpoint.
 });
 
-app.use(store).use(router).use(client).use(veProgress).mount("#app");
+app
+  .use(store)
+  .use(router)
+  .use(client)
+  .use(veProgress)
+  .use(vfmPlugin)
+  .mount("#app");
