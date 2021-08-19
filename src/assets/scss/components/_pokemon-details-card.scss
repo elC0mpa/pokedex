@@ -18,14 +18,17 @@
     "general-info general-info";
 
   &__title-container {
+    text-align: center;
     grid-area: title;
     &--title {
-      text-align: center;
       font-size: xxx-large;
       text-transform: capitalize;
       margin-top: 5px;
       margin-bottom: 5px;
       text-decoration: underline;
+      display: inline;
+      color: transparent;
+      background-clip: text;
     }
   }
 

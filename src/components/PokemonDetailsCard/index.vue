@@ -1,7 +1,10 @@
 <template>
   <div class="pokemon-details-card">
     <div class="pokemon-details-card__title-container">
-      <p class="pokemon-details-card__title-container--title">
+      <p
+        class="pokemon-details-card__title-container--title"
+        :style="titleGradient"
+      >
         {{ pokemon.name }}
       </p>
     </div>
@@ -17,6 +20,8 @@ import PokemonSprite from "./PokemonSprite.vue";
 import PokemonDescription from "./PokemonDescription.vue";
 import PokemonGeneralInfo from "./PokemonGeneralInfo.vue";
 import PokemonBaseStats from "./PokemonBaseStats.vue";
+import { getColorFromType } from "../../composables/utils";
+import { computed } from "vue";
 export default {
   components: {
     PokemonSprite,
@@ -31,7 +36,14 @@ export default {
     },
   },
   setup(props) {
-    return { props };
+    const titleGradient = computed(() => {
+      let firstColor = getColorFromType(props.pokemon.types[0].name);
+      let secondColor = getColorFromType(
+        props.pokemon.types[props.pokemon.types.length - 1].name
+      );
+      return `background-image: linear-gradient(to right, ${firstColor}, ${secondColor});`;
+    });
+    return { props, titleGradient };
   },
 };
 </script>
